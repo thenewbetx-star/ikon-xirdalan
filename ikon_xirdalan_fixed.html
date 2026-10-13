@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050507">
+  <meta name="description" content="IKON XIRDALAN — premium geyim və aksesuar kolleksiyası. Məhsulları kəşf edin və WhatsApp ilə sifariş verin.">
+  <title>IKON XIRDALAN — Haute Couture & Luxury</title>
+
+  <!-- Xarici kitabxanalar yüklənməsə də əsas sayt işləməlidir. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #050507;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .cinzel { font-family: 'Cinzel', serif; }
+    .gold-gradient {
+      background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .gold-bg { background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%); }
+    .glass-card {
+      background: rgba(15, 15, 20, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+    @supports (backdrop-filter: blur(10px)) {
+      .glass-card { backdrop-filter: blur(20px); }
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.5);
+      box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+    }
+    .pill-btn { border-radius: 9999px; transition: all .25s ease; }
+    .pill-btn:focus-visible, button:focus-visible {
+      outline: 2px solid #f3e5ab;
+      outline-offset: 3px;
+    }
+    .glow-effect { box-shadow: 0 0 50px rgba(212, 175, 55, 0.12); }
+    .product-image { height: 18rem; width: 100%; object-fit: cover; }
+    .modal-panel { overscroll-behavior: contain; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen relative">
+  <div aria-hidden="true" class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#d4af37]/10 blur-[140px] pointer-events-none rounded-full"></div>
+
+  <div id="topBanner" class="bg-[#d4af37] text-black text-[10px] sm:text-xs font-bold text-center py-2 uppercase tracking-[0.2em]">
+    💎 IKON XIRDALAN — Yeni Mövsüm Eksklüziv Kolleksiyası
+  </div>
+
+  <section id="splash" class="fixed inset-0 z-50 bg-[#040406] flex flex-col items-center justify-center p-6">
+    <div class="w-24 h-24 rounded-full border border-[#d4af37]/30 flex items-center justify-center mb-8 bg-[#09090d] glow-effect" aria-hidden="true">
+      <span class="cinzel text-4xl font-black gold-gradient tracking-tighter">IX</span>
+    </div>
+    <h1 class="cinzel text-3xl sm:text-5xl font-extrabold gold-gradient mb-3 text-center tracking-[0.16em]">IKON XIRDALAN</h1>
+    <p class="text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.5em] text-gray-400 mb-10 text-center font-light">Haute Couture & Private Client Services</p>
+    <button id="enterStoreButton" type="button" class="pill-btn gold-bg text-black font-bold px-10 py-4 text-xs tracking-[0.2em] uppercase hover:scale-105 shadow-xl shadow-[#d4af37]/20">
+      Kolleksiyanı Kəşf Et
+    </button>
+  </section>
+
+  <div id="app" class="hidden">
+    <nav class="sticky top-0 z-40 glass-card border-b border-[#d4af37]/15 px-4 sm:px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3" aria-label="IKON XIRDALAN ana səhifə">
+        <span class="cinzel text-2xl font-black gold-gradient tracking-widest">IX</span>
+        <span class="hidden sm:inline-block border-l border-gray-800 pl-3 text-[11px] uppercase tracking-widest text-gray-400 font-light">IKON XIRDALAN</span>
+      </a>
+      <button id="openCartButton" type="button" class="relative p-3 rounded-full bg-[#121218] text-gray-300 hover:text-white border border-[#d4af37]/20" aria-label="Alış-veriş səbətini aç">
+        <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+        <span id="cartCount" class="absolute -top-1 -right-1 bg-[#d4af37] text-black font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">0</span>
+      </button>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 border-b border-gray-900 pb-6">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#d4af37]">Eksklüziv Seçim</span>
+          <h2 class="cinzel text-3xl sm:text-4xl font-extrabold gold-gradient mt-1">Lüks Kolleksiya</h2>
+        </div>
+        <p class="text-xs text-gray-400 mt-2 md:mt-0 font-light">Məhdud sayda təqdim olunan premium parçalar</p>
+      </div>
+
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" aria-live="polite"></div>
+      <p class="text-center text-[11px] text-gray-500 mt-10">Qiymət və mövcudluq sifariş təsdiqindən əvvəl satıcı ilə dəqiqləşdirilir.</p>
+    </main>
+
+    <footer class="border-t border-gray-900 px-4 py-8 text-center text-xs text-gray-500">
+      <p>© <span id="currentYear"></span> IKON XIRDALAN. Bütün hüquqlar qorunur.</p>
+    </footer>
+
+    <div id="cartModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-lg hidden justify-end" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <button id="cartBackdrop" type="button" class="absolute inset-0 w-full h-full cursor-default" aria-label="Səbəti bağla"></button>
+      <section class="modal-panel relative w-full max-w-md bg-[#0a0a0f] h-full p-5 sm:p-6 flex flex-col border-l border-[#d4af37]/20 shadow-2xl overflow-y-auto">
+        <div class="flex items-center justify-between pb-6 border-b border-gray-900">
+          <div>
+            <h3 id="cartTitle" class="cinzel text-2xl font-bold gold-gradient">Səbətiniz</h3>
+            <p class="text-[11px] text-gray-500">Seçilmiş məhsullar</p>
+          </div>
+          <button id="closeCartButton" type="button" class="text-gray-400 hover:text-white text-xl p-2" aria-label="Səbəti bağla">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div id="cartItems" class="py-6 space-y-4 flex-1"></div>
+
+        <div class="border-t border-gray-900 pt-6">
+          <div class="flex justify-between items-center mb-6 gap-4">
+            <span class="text-gray-400 text-xs uppercase tracking-widest">Yekun məbləğ:</span>
+            <span id="cartTotal" class="cinzel font-bold text-2xl text-[#d4af37]">0 AZN</span>
+          </div>
+          <button id="checkoutButton" type="button" class="w-full pill-btn gold-bg text-black font-bold py-4 px-3 text-xs tracking-[0.12em] uppercase flex items-center justify-center gap-3 hover:opacity-90">
+            <i class="fa-brands fa-whatsapp text-xl" aria-hidden="true"></i> WhatsApp ilə sifariş et
+          </button>
+          <p class="text-[10px] leading-relaxed text-gray-500 mt-3">Sifariş WhatsApp-da mesaj kimi hazırlanacaq. Sifariş yalnız satıcı ilə təsdiqləndikdən sonra qəbul olunur.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="padding:1rem;background:#1b1b1b;color:white">Saytdan istifadə etmək üçün brauzerdə JavaScript aktiv olmalıdır.</p>
+  </noscript>
+
+  <script>
+    'use strict';
+
+    // Məhsul şəkillərini və qiymətləri yayımdan əvvəl öz real məhsullarınıza uyğunlaşdırın.
+    const products = [
+      { id: 1, name: "Haute Couture İpək Köynək", price: 220, category: "Geyim", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80", alt: "İpək köynək" },
+      { id: 2, name: "Atelye İstehsalı Dəri Pencək", price: 580, category: "Geyim", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80", alt: "Dəri pencək" },
+      { id: 3, name: "Titanium Chronograph Saat", price: 1150, category: "Aksesuar", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80", alt: "Qol saatı" },
+      { id: 4, name: "Minimalist Qara Dəri Çanta", price: 390, category: "Aksesuar", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80", alt: "Qara dəri çanta" }
+    ];
+
+    // WhatsApp nömrəsi beynəlxalq formatda, yalnız rəqəmlərlə yazılmalıdır.
+    const WHATSAPP_NUMBER = "994552493330";
+    const cart = new Map();
+
+    const $ = (id) => document.getElementById(id);
+    const formatPrice = (amount) => `${amount.toLocaleString("az-AZ")} AZN`;
+
+    function safeText(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[char]));
+    }
+
+    function enterStore() {
+      $("splash").classList.add("hidden");
+      $("app").classList.remove("hidden");
+      renderProducts();
+      renderCart();
+    }
+
+    function renderProducts() {
+      $("productGrid").innerHTML = products.map((product) => `
+        <article class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between group">
+          <div>
+            <div class="overflow-hidden rounded-xl mb-5 relative bg-[#0a0a0f]">
+              <img
+                src="${safeText(product.img)}"
+                alt="${safeText(product.alt)}"
+                loading="lazy"
+                decoding="async"
+                class="product-image group-hover:scale-105 transition-transform duration-500 opacity-95"
+                onerror="this.onerror=null;this.alt='Məhsul şəkli mövcud deyil';this.style.objectFit='contain';this.style.padding='2rem';this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22 viewBox=%220 0 400 400%22%3E%3Crect width=%22400%22 height=%22400%22 fill=%22%23121218%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%23d4af37%22 font-size=%2220%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EIKON XIRDALAN%3C/text%3E%3C/svg%3E';"
+              >
+              <span class="absolute top-3 left-3 bg-black/75 border border-[#d4af37]/30 text-[#d4af37] text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                ${safeText(product.category)}
+              </span>
+            </div>
+            <h3 class="font-medium text-gray-100 text-sm tracking-wide mb-1">${safeText(product.name)}</h3>
+          </div>
+          <div class="flex items-center justify-between gap-3 mt-4 pt-3 border-t border-gray-900">
+            <span class="cinzel font-bold text-base sm:text-lg text-[#d4af37] whitespace-nowrap">${formatPrice(product.price)}</span>
+            <button type="button" data-add="${product.id}" class="add-to-cart pill-btn border border-[#d4af37]/40 px-4 py-2 text-xs font-semibold text-[#d4af37] hover:bg-[#d4af37] hover:text-black">
+              Səbətə at
+            </button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function addToCart(id) {
+      const product = products.find((item) => item.id === Number(id));
+      if (!product) return;
+      const existing = cart.get(product.id);
+      if (existing) existing.quantity += 1;
+      else cart.set(product.id, { product, quantity: 1 });
+      renderCart();
+    }
+
+    function changeQuantity(id, delta) {
+      const item = cart.get(Number(id));
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) cart.delete(Number(id));
+      renderCart();
+    }
+
+    function removeFromCart(id) {
+      cart.delete(Number(id));
+      renderCart();
+    }
+
+    function getCartTotal() {
+      let total = 0;
+      for (const { product, quantity } of cart.values()) total += product.price * quantity;
+      return total;
+    }
+
+    function renderCart() {
+      const quantityTotal = [...cart.values()].reduce((sum, item) => sum + item.quantity, 0);
+      $("cartCount").textContent = quantityTotal;
+      $("cartTotal").textContent = formatPrice(getCartTotal());
+      $("checkoutButton").disabled = cart.size === 0;
+      $("checkoutButton").classList.toggle("opacity-50", cart.size === 0);
+      $("checkoutButton").classList.toggle("cursor-not-allowed", cart.size === 0);
+
+      if (cart.size === 0) {
+        $("cartItems").innerHTML = '<p class="text-gray-500 text-center py-10 text-xs uppercase tracking-widest">Səbətiniz boşdur</p>';
+        return;
+      }
+
+      $("cartItems").innerHTML = [...cart.values()].map(({ product, quantity }) => `
+        <article class="bg-[#121218] p-4 rounded-xl border border-gray-900">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-xs font-semibold text-white">${safeText(product.name)}</p>
+              <p class="text-xs text-[#d4af37] font-bold mt-1">${formatPrice(product.price * quantity)}</p>
+              <p class="text-[10px] text-gray-500 mt-1">${formatPrice(product.price)} / ədəd</p>
+            </div>
+            <button type="button" data-remove="${product.id}" class="text-gray-500 hover:text-red-400 text-xs p-2" aria-label="${safeText(product.name)} məhsulunu sil">
+              <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="flex items-center gap-3 mt-3">
+            <button type="button" data-change="${product.id}" data-delta="-1" class="w-8 h-8 rounded-full border border-gray-700 hover:border-[#d4af37]" aria-label="Miqdarı azalt">−</button>
+            <span class="text-sm min-w-5 text-center">${quantity}</span>
+            <button type="button" data-change="${product.id}" data-delta="1" class="w-8 h-8 rounded-full border border-gray-700 hover:border-[#d4af37]" aria-label="Miqdarı artır">+</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function openCart() {
+      $("cartModal").classList.remove("hidden");
+      $("cartModal").classList.add("flex");
+      $("closeCartButton").focus();
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeCart() {
+      $("cartModal").classList.add("hidden");
+      $("cartModal").classList.remove("flex");
+      document.body.style.overflow = "";
+      $("openCartButton").focus();
+    }
+
+    function checkoutWhatsApp() {
+      if (cart.size === 0) {
+        alert("Səbətiniz boşdur. Əvvəlcə məhsul əlavə edin.");
+        return;
+      }
+      const lines = [...cart.values()].map(({ product, quantity }, index) =>
+        `${index + 1}. ${product.name} — ${quantity} ədəd × ${formatPrice(product.price)} = ${formatPrice(product.price * quantity)}`
+      );
+      const message = [
+        "Salam, IKON XIRDALAN! Aşağıdakı məhsulları sifariş etmək istəyirəm:",
+        "",
+        ...lines,
+        "",
+        `Ümumi məbləğ: ${formatPrice(getCartTotal())}`,
+        "",
+        "Zəhmət olmasa, məhsulların mövcudluğunu və çatdırılma şərtlərini təsdiqləyin."
+      ].join("\n");
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+      if (!newWindow) {
+        // Popup bloklanarsa, istifadəçi linki özü aça bilər.
+        alert("WhatsApp açılmadı. Brauzer pop-up pəncərəsini bloklamış ola bilər. Səhifə icazələrini yoxlayıb yenidən cəhd edin.");
+      }
+    }
+
+    $("enterStoreButton").addEventListener("click", enterStore);
+    $("openCartButton").addEventListener("click", openCart);
+    $("closeCartButton").addEventListener("click", closeCart);
+    $("cartBackdrop").addEventListener("click", closeCart);
+    $("checkoutButton").addEventListener("click", checkoutWhatsApp);
+    $("currentYear").textContent = new Date().getFullYear();
+
+    $("productGrid").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-add]");
+      if (button) addToCart(button.dataset.add);
+    });
+
+    $("cartItems").addEventListener("click", (event) => {
+      const removeButton = event.target.closest("[data-remove]");
+      if (removeButton) {
+        removeFromCart(removeButton.dataset.remove);
+        return;
+      }
+      const changeButton = event.target.closest("[data-change]");
+      if (changeButton) changeQuantity(changeButton.dataset.change, Number(changeButton.dataset.delta));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !$("cartModal").classList.contains("hidden")) closeCart();
+    });
+  </script>
+</body>
+</html>
